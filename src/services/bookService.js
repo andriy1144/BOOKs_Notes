@@ -68,5 +68,15 @@ export async function addBook(bookData){
         );
     }catch(error){
         console.error(`ERROR/ addBook(bookData): ${error}`)
+        throw error;
+    }
+}
+
+export async function deleteBookById(id) {
+    try{
+        await db.query("DELETE FROM books WHERE id = $1", [id]);
+    }catch(error){
+        console.error(`ERROR/ addBook(bookData): ${error}`)
+        throw error;
     }
 }
