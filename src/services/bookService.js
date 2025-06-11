@@ -31,3 +31,23 @@ export async function getAllBooksFormatted(){
         throw error;
     }
 }
+
+export async function updateBook(id,updatedBookData){
+    try{
+        await db.query("UPDATE books SET title = $1, description = $2, rating = $3, isbn = $4, start_reading_date = $5, end_reading_date = $6, link = $7 WHERE id = $8",
+            [
+                updatedBookData?.title, 
+                updatedBookData?.description,
+                updatedBookData?.rating,
+                updatedBookData?.isbn,
+                updatedBookData?.start_reading_date,
+                updatedBookData?.end_reading_date,
+                updatedBookData?.link,
+                id
+            ]
+        );
+    }catch(error){
+        console.error(`ERROR/ updateBook(updateBookData): ${error}`)
+        throw error;
+    }
+}

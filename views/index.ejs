@@ -11,14 +11,48 @@
         <% if(locals.books){ %>
             <% for(let book of books) { %>
             <div class="book">
-                <img src="" alt="<%= book.title %>" class="book-img">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>" class="book-img" loading="lazy">
                 <div class="book-title-and-rating">
                     <h2 class="book-title"><%= book.title %></h2>
                     <p>Rating: <%= book.rating %></p>
                 </div>
-                <p class="book-isbn"><%= book.isbn %></p>
+                <p class="book-isbn">ISBN: <%= book.isbn %></p>
                 <p class="book-reading-dates">Date read: <%= book.start_reading_date %> - <%= book.end_reading_date %></p>
                 <p class="book-description"><%= book.description %></p>
+
+                <!-- TEMPORARY UPDATE FORM -->
+                <h3>Update form</h3>
+                <form action="/book/<%= book.id %>/update" method="post">
+                    <label for="title">Book title</label>
+                    <input type="text" id="title" name="title" value="<%= book.title %>" required>
+                    <br>
+                    
+                    <label for="description">Description</label>
+                    <textarea type="text" id="description" name="description" required><%= book.description %></textarea>
+                    <br>
+                    
+                    <label for="rating">Rating</label>
+                    <input type="number" id="rating" name="rating" min="0.1" max="10.0" step="0.1"  value="<%= book.rating %>" required>
+                    <br>
+                    
+                    <label for="isbn">ISBN</label>
+                    <input type="number" id="isbn" name="isbn" value="<%= book.isbn %>" required>
+                    <br>
+                    
+                    <label for="start_reading_date">Start reading date</label>
+                    <input type="date" id="start_reading_date" name="start_reading_date" value="<%= book.start_reading_date %>" required>
+                    <br>
+                    
+                    <label for="end_reading_date">Start reading date</label>
+                    <input type="date" id="end_reading_date" name="end_reading_date" value="<%= book.end_reading_date %>" required>
+                    <br>
+
+                    <label for="link">Link</label>
+                    <input type="text" id="link" name="link" value="<%= book.link %>">
+
+                    <br>
+                    <button type="submit">Update book</button>
+                </form>
             </div>
             <hr>
             <% } %>
