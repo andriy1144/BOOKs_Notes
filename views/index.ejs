@@ -6,6 +6,25 @@
     <title>Homepage</title>
 </head>
 <body>
-    <h1><%= new Date() %></h1>
+    <%- include('partials/header.ejs') %>
+    <section class="books-sectiony">
+        <% if(locals.books){ %>
+            <% for(let book of books) { %>
+            <div class="book">
+                <img src="" alt="<%= book.title %>" class="book-img">
+                <div class="book-title-and-rating">
+                    <h2 class="book-title"><%= book.title %></h2>
+                    <p>Rating: <%= book.rating %></p>
+                </div>
+                <p class="book-isbn"><%= book.isbn %></p>
+                <p class="book-reading-dates">Date read: <%= book.start_reading_date %> - <%= book.end_reading_date %></p>
+                <p class="book-description"><%= book.description %></p>
+            </div>
+            <hr>
+            <% } %>
+        <% }else{ %>
+            <h2 class="empty-message">Book's list is empty!</h2>
+        <% } %>
+    </section>
 </body>
 </html>
