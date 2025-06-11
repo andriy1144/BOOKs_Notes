@@ -51,3 +51,22 @@ export async function updateBook(id,updatedBookData){
         throw error;
     }
 }
+
+export async function addBook(bookData){
+    try{
+        await db.query("INSERT INTO books(title, description, rating, isbn, start_reading_date, end_reading_date, link, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+            [
+                bookData?.title, 
+                bookData?.description,
+                bookData?.rating,
+                bookData?.isbn,
+                bookData?.start_reading_date,
+                bookData?.end_reading_date, //FIX IN FUTURE TO ADD ABILITY UPLOADING BOOKS WITH NULL END_READING_DATE
+                bookData?.link,
+                1 //CHANGE IN FUTURE TO A REAL USER
+            ]
+        );
+    }catch(error){
+        console.error(`ERROR/ addBook(bookData): ${error}`)
+    }
+}

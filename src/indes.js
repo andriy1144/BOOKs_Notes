@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-import { getAllBooksFormatted, updateBook } from "./services/bookService.js";
+import { addBook, getAllBooksFormatted, updateBook } from "./services/bookService.js";
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +19,16 @@ app.get("/", async (req,res) => {
 });
 
 //BOOKS ENDPOINTS
+app.post("/book/add", async (req,res) =>{
+    try{
+        const bookData = req.body;
+        await addBook(bookData);
+        res.redirect("/");
+    }catch(error){
+        res.status(500).json({error: error});
+    }
+});
+
 app.post("/book/:id/update", async (req,res) => {
     try{
         const id = parseInt(req.params.id);
