@@ -2,12 +2,18 @@ import db from "../database.js"
 
 // TEMPORARY SOLUTION FOR AUTHORIZATION STATE
 let isLoggedIn = false;
+let userId;
 const allowedEndpoints = ['/login', '/registration'];
+
 export async function checkAuthorized(req,res,next) {
     if(isLoggedIn || allowedEndpoints.includes(req.url)) next();
     else{
         res.redirect("/login");
     }
+}
+
+export async function getCurrentUserId() {
+    return userId;
 }
 
 export async function getAllUsers(){
@@ -27,7 +33,10 @@ export async function authorize(userData){
         
         const user = res.rows[0];
         if(user.password.trim() !== userData.password.trim()) throw new Error(`Access denied! Password incorrect!`);
-        else isLoggedIn = true;
+        else {
+            isLoggedIn = true;
+            userId = user.id;
+        }
 
         return true;
     }catch(error){

@@ -29,6 +29,16 @@ export async function getAllBooksFormatted(){
     }
 }
 
+export async function getAllBooksFormattedByUser(userId){
+    try{
+        const res = await db.query("SELECT * FROM books WHERE user_id = $1", [userId]);
+        return formatBooksData(res.rows);
+    }catch(error){
+        console.error(`ERROR/ getAllBooksFormatted(): ${error}`);
+        throw error;
+    }
+}
+
 export async function getBookById(id){
     try{
         const res = await db.query("SELECT * FROM books WHERE id = $1", [id]);
@@ -41,9 +51,21 @@ export async function getBookById(id){
     }
 }
 
-export async function updateBook(id,updatedBookData){
+export async function getBookByIdAndUser(id, user_id){
     try{
-        await db.query("UPDATE books SET title = $1, description = $2, rating = $3, isbn = $4, start_reading_date = $5, end_reading_date = $6, link = $7 WHERE id = $8",
+        const res = await db.query("SELECT * FROM books WHERE id = $1 AND user_id = $2", [id, user_id]);
+        if(res.rows.length < 1) throw new Error(`Book with id: ${id} and user_id: ${user_id} - was not found!`)
+        const formattedBookData = await formatBooksData(res.rows);
+        return formattedBookData[0];
+    }catch(error){
+        console.error(`ERROR/ getBookById(id): ${error}`);
+        throw error;
+    }
+}
+
+export async function updateBook(id,updatedBookData, user_id){
+    try{
+        await db.query("UPDATE books SET title = $1, description = $2, rating = $3, isbn = $4, start_reading_date = $5, end_reading_date = $6, link = $7 WHERE id = $8 AND user_id = $9",
             [
                 updatedBookData?.title, 
                 updatedBookData?.description,
@@ -52,7 +74,8 @@ export async function updateBook(id,updatedBookData){
                 updatedBookData?.start_reading_date,
                 updatedBookData?.end_reading_date,
                 updatedBookData?.link,
-                id
+                id,
+                user_id
             ]
         );
     }catch(error){
@@ -61,7 +84,7 @@ export async function updateBook(id,updatedBookData){
     }
 }
 
-export async function addBook(bookData){
+export async function addBook(bookData, user_id){
     try{
         await db.query("INSERT INTO books(title, description, rating, isbn, start_reading_date, end_reading_date, link, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
             [
@@ -72,7 +95,7 @@ export async function addBook(bookData){
                 bookData?.start_reading_date,
                 bookData?.end_reading_date, //FIX IN FUTURE TO ADD ABILITY UPLOADING BOOKS WITH NULL END_READING_DATE
                 bookData?.link,
-                1 //CHANGE IN FUTURE TO A REAL USER
+                user_id 
             ]
         );
     }catch(error){
@@ -81,9 +104,9 @@ export async function addBook(bookData){
     }
 }
 
-export async function deleteBookById(id) {
+export async function deleteBookById(id, user_id) {
     try{
-        await db.query("DELETE FROM books WHERE id = $1", [id]);
+        await db.query("DELETE FROM books WHERE id = $1 AND user_id = $2", [id, user_id]);
     }catch(error){
         console.error(`ERROR/ addBook(bookData): ${error}`)
         throw error;

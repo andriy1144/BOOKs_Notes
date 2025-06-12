@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-import { addBook, deleteBookById, getAllBooksFormatted, getBookById, updateBook } from "./services/bookService.js";
-import { authorize, checkAuthorized, registration } from "./services/userService.js";
+import { addBook, deleteBookById, getBookByIdAndUser, updateBook, getAllBooksFormattedByUser } from "./services/bookService.js";
+import { authorize, checkAuthorized, registration, getCurrentUserId } from "./services/userService.js";
 
 const app = express();
 const PORT = 3000;
@@ -10,23 +10,13 @@ const PORT = 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
-// // TEMPORARY SOLUTION FOR AUTHORIZATION STATE
-// const isLoggedIn = false;
-
-// const checkAuthorized = (req,res,next) => {
-//     const allowedEndpoints = ['/login'];
-
-//     if(isLoggedIn || allowedEndpoints.includes(req.url)) next();
-//     else{
-//         res.redirect("/login");
-//     }
-// }
 app.use(checkAuthorized);
 
 
 app.get("/", async (req,res) => {
     try{
-        const books = await getAllBooksFormatted();
+        const user_id = await getCurrentUserId();
+        const books = await getAllBooksFormattedByUser(user_id);
         res.render("index.ejs", {books: books});
     }catch(error){
         res.status(500).json({error: error.message});
@@ -36,8 +26,9 @@ app.get("/", async (req,res) => {
 //BOOKS ENDPOINTS
 app.get("/book/:id", async (req,res) => {
     try{
-        const id = req.params.id;
-        const book = await getBookById(id);
+        const id = parseInt(req.params.id);
+        const user_id = await getCurrentUserId();
+        const book = await getBookByIdAndUser(id, user_id);
         res.render("bookPage.ejs", {pageTitle: book.title,headerTitle: book.title, book: book})
     }catch(error){
         res.status(500).json({error: error.message});
@@ -47,7 +38,8 @@ app.get("/book/:id", async (req,res) => {
 app.post("/book/add", async (req,res) =>{
     try{
         const bookData = req.body;
-        await addBook(bookData);
+        const user_id = await getCurrentUserId();
+        await addBook(bookData, user_id);
         res.redirect("/");
     }catch(error){
         res.status(500).json({error: error.message});
@@ -57,8 +49,9 @@ app.post("/book/add", async (req,res) =>{
 app.post("/book/:id/update", async (req,res) => {
     try{
         const id = parseInt(req.params.id);
+        const user_id = await getCurrentUserId();
         const updatedBookData = req.body;
-        await updateBook(id,updatedBookData);
+        await updateBook(id,updatedBookData, user_id);
         res.redirect("/");
     }catch(error){
         res.status(500).json({error: error.message});
@@ -68,7 +61,8 @@ app.post("/book/:id/update", async (req,res) => {
 app.get("/book/:id/delete", async(req,res) => {
     try{
         const id = req.params.id;
-        await deleteBookById(id);
+        const user_id = await getCurrentUserId();
+        await deleteBookById(id, user_id);
         res.redirect("/");
     }catch(error){
         res.status(500).json({error: error.message});
