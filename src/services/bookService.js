@@ -32,6 +32,18 @@ export async function getAllBooksFormatted(){
     }
 }
 
+export async function getBookById(id){
+    try{
+        const res = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+        if(res.rows.length < 1) throw new Error(`Book with id: ${id} - was not found!`)
+        const formattedBookData = await formatBooksData(res.rows);
+        return formattedBookData[0];
+    }catch(error){
+        console.error(`ERROR/ getBookById(id): ${error}`);
+        throw error;
+    }
+}
+
 export async function updateBook(id,updatedBookData){
     try{
         await db.query("UPDATE books SET title = $1, description = $2, rating = $3, isbn = $4, start_reading_date = $5, end_reading_date = $6, link = $7 WHERE id = $8",

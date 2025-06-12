@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <section class="book-details-section">
+        <a href="/">< Back</a>
+        <div class="book-details">
+            <div class="book-img-and-link">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-L.jpg" alt="<%= book.title %>" class="book-page-img">
+                <p class="book-page-link">Go to this page to see more details and reviews: <a href="<%= book.link %>"><%= book.title %> </a></p>
+            </div>
+            <div class="book-info">
+                <h4 class="book-page-isbn">ISBN - <%= book.title %></h4>
+                <h4 class="book-page-rating">Rating - <%= book.rating %></h4>
+                <h4 class="book-page-start-date">Reading start date: <%= book.start_reading_date %></h4>
+                <h4 class="book-page-end-date">Reading end date: <%= book.end_reading_date %></h4>
+                <p class="book-page-description"><%= book.description %></p>
+            </div>
+        </div>
+        <%= book %>
+
+        <!-- TO-DO: NOTES SECTIONT -->
+    </section>
+</body>
+</html>

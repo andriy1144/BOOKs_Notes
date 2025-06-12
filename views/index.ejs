@@ -48,9 +48,9 @@
         <% if(locals.books){ %>
             <% for(let book of books) { %>
             <div class="book">
-                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>" class="book-img" loading="lazy">
+                <a href="/book/<%= book.id %>"><img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>" class="book-img" loading="lazy"></a>
                 <div class="book-title-and-rating">
-                    <h2 class="book-title"><%= book.title %></h2>
+                    <h2 class="book-title"><a href="/book/<%= book.id %>"><%= book.title %></a></h2>
                     <p>Rating: <%= book.rating %></p>
                 </div>
                 <p class="book-isbn">ISBN: <%= book.isbn %></p>
