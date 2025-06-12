@@ -2,9 +2,8 @@ import db from "../database.js"
 
 // TEMPORARY SOLUTION FOR AUTHORIZATION STATE
 let isLoggedIn = false;
+const allowedEndpoints = ['/login', '/registration'];
 export async function checkAuthorized(req,res,next) {
-    const allowedEndpoints = ['/login'];
-
     if(isLoggedIn || allowedEndpoints.includes(req.url)) next();
     else{
         res.redirect("/login");
@@ -33,6 +32,16 @@ export async function authorize(userData){
         return true;
     }catch(error){
         console.error(`ERROR/ authorize(userData): ${error}`);
+        throw error;
+    }
+}
+
+export async function registration(userData){
+    try{
+        await db.query("INSERT INTO users(email, password) VALUES ($1,$2)", [userData.email, userData.password]);
+        return true;
+    }catch(error){
+        console.error(`ERROR/ registration(userData): ${error}`);
         throw error;
     }
 }

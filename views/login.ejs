@@ -16,10 +16,14 @@
                 <input type="email" id="email" name="email" placeholder="pbl_user@gmail.com" required>
 
                 <label for="password">Password</label>
-                <input type="passowrd" id="password" name="password" placeholder="********" required>
+                <input type="password" id="password" name="password" placeholder="********" required>
 
                 <button type="submit">Login</button>
             </form>
+
+            <% if(locals.registrationMessage){ %>
+                <p class="registrationMessage"><%= registrationMessage %></p>    
+            <% } %>
             <a href="/registration">Don't have an account?</a>
         </div>
     </div>
