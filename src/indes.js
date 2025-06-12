@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import { addBook, deleteBookById, getBookByIdAndUser, updateBook, getAllBooksFormattedByUser } from "./services/bookService.js";
-import { authorize, checkAuthorized, registration, getCurrentUserId } from "./services/userService.js";
+import { authorize, checkAuthorized, registration, getCurrentUserId, logout } from "./services/userService.js";
 
 const app = express();
 const PORT = 3000;
@@ -95,6 +95,15 @@ app.post("/registration", async (req,res) => {
         const registrationRes = await registration(userData);
 
         if(registrationRes) res.render("login.ejs", {registrationMessage: "Registration was successful. "});
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+});
+
+app.get("/logout", async (req,res) => {
+    try{
+        await logout();
+        res.redirect("/login");
     }catch(error){
         res.status(500).json({error: error.message});
     }

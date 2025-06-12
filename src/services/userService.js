@@ -54,3 +54,8 @@ export async function registration(userData){
         throw error;
     }
 }
+
+export async function logout(){
+    isLoggedIn = false;
+    userId = -1;
+}
