@@ -11,4 +11,6 @@ const db = new pg.Client({
     host: process.env.DATABASE_HOST || 'localhost',
 });
 
+db.connect();
+
 export default db;

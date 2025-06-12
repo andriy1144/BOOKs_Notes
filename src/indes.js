@@ -2,12 +2,27 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import { addBook, deleteBookById, getAllBooksFormatted, getBookById, updateBook } from "./services/bookService.js";
+import { authorize, checkAuthorized } from "./services/userService.js";
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
+
+// // TEMPORARY SOLUTION FOR AUTHORIZATION STATE
+// const isLoggedIn = false;
+
+// const checkAuthorized = (req,res,next) => {
+//     const allowedEndpoints = ['/login'];
+
+//     if(isLoggedIn || allowedEndpoints.includes(req.url)) next();
+//     else{
+//         res.redirect("/login");
+//     }
+// }
+app.use(checkAuthorized);
+
 
 app.get("/", async (req,res) => {
     try{
@@ -57,6 +72,22 @@ app.get("/book/:id/delete", async(req,res) => {
         res.redirect("/");
     }catch(error){
         res.status(500).json({error: error.message});
+    }
+});
+
+
+// LOGIN AND REGISTRATION ENDPOINTS
+app.get("/login", async (req,res) => {
+    res.render("login.ejs");
+});
+app.post("/login", async (req,res) => {
+    try{
+        const userData = req.body;
+        const authorizeRes = await authorize(userData);
+        
+        if(authorizeRes) res.redirect("/");
+    }catch(error){
+        res.status(403).json({error: error.message});
     }
 });
 

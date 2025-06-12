@@ -1,9 +1,6 @@
 import db from "../database.js"
 import { formatDate } from "../utils/dateUtils.js";
 
-
-db.connect();
-
 async function formatBooksData(booksData){
     booksData.forEach(book => {
         book.start_reading_date = formatDate(book.start_reading_date);
