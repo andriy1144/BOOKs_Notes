@@ -38,7 +38,19 @@
                     <div class="note">
                         <h3 class="note-date"><%= note.note_date %></h3>
                         <p class="note-text"><%= note.note_text %></p>     
-                        <a href="/book/<%= book.id %>/note/<%= note.id %>/delete">Delete</a>                   
+                        <a href="/book/<%= book.id %>/note/<%= note.id %>/delete">Delete</a>         
+                        
+                        <form action="/book/note/update_note" method="post">
+                            <input type="hidden" name="book_id" value="<%= book.id %>">
+                            <input type="hidden" name="note_id" value="<%= note.id %>">
+
+                            <h4>UPDATE NOTE</h4>
+
+                            <label for="note_text">Note text:</label>
+                            <textarea name="note_text" id="note_text" required><%= note.note_text %></textarea>
+
+                            <button type="submit">Update</button>
+                        </form>
                     </div>
                 <% } %>                    
             <% }else {  %>

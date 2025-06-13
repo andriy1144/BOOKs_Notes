@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 
 import { addBook, deleteBookById, getBookByIdAndUser, updateBook, getAllBooksFormattedByUser } from "./services/bookService.js";
 import { authorize, checkAuthorized, registration, getCurrentUserId, logout } from "./services/userService.js";
-import { addNote, getNotesByBookId, deleteNote } from "./services/notesService.js";
+import { addNote, getNotesByBookId, deleteNote, updateNote } from "./services/notesService.js";
 
 const app = express();
 const PORT = 3000;
@@ -90,6 +90,18 @@ app.get("/book/:book_id/note/:note_id/delete", async (req,res) => {
         const user_id = await getCurrentUserId();
         await deleteNote(note_id,user_id);
         res.redirect(`/book/${req.params.book_id}`);
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+});
+
+app.post("/book/note/update_note", async (req,res) => {
+    try{
+        const note_data = req.body;
+        const user_id = await getCurrentUserId();
+
+        await updateNote(note_data, user_id);
+        res.redirect(`/book/${note_data.book_id}`);
     }catch(error){
         res.status(500).json({error: error.message});
     }
