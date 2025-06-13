@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 
 import { addBook, deleteBookById, getBookByIdAndUser, updateBook, getAllBooksFormattedByUser } from "./services/bookService.js";
 import { authorize, checkAuthorized, registration, getCurrentUserId, logout } from "./services/userService.js";
+import { addNote, getNotesByBookId } from "./services/notesService.js";
 
 const app = express();
 const PORT = 3000;
@@ -29,7 +30,9 @@ app.get("/book/:id", async (req,res) => {
         const id = parseInt(req.params.id);
         const user_id = await getCurrentUserId();
         const book = await getBookByIdAndUser(id, user_id);
-        res.render("bookPage.ejs", {pageTitle: book.title,headerTitle: book.title, book: book})
+
+        const notes = await getNotesByBookId(id);
+        res.render("bookPage.ejs", {headerTitle: book.title, book: book, notes: notes})
     }catch(error){
         res.status(500).json({error: error.message});
     }
@@ -64,6 +67,17 @@ app.get("/book/:id/delete", async(req,res) => {
         const user_id = await getCurrentUserId();
         await deleteBookById(id, user_id);
         res.redirect("/");
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+});
+
+// NOTES ENDPOINTS
+app.post("/book/addNote", async (req,res) => {
+    try{
+        const note_data = req.body;
+        await addNote(note_data);
+        res.redirect(`/book/${note_data.book_id}`);
     }catch(error){
         res.status(500).json({error: error.message});
     }

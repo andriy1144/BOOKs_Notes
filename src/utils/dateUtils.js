@@ -4,3 +4,8 @@ export function formatDate(date){
     dateObj.setUTCHours(0,0,0,0);
     return dateObj.toISOString().split('T')[0];
 }
+
+export function getCurrentFormatDate(){
+    const today = new Date();
+    return formatDate(today);
+}

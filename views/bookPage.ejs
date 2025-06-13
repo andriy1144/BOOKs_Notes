@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= pageTitle %></title>
+    <title><%= book.title %></title>
 </head>
 <body>
     <%- include("partials/header.ejs") %>
@@ -24,6 +24,26 @@
         </div>
 
         <!-- TO-DO: NOTES SECTION -->
+        <form action="/book/addNote" method="post">
+            <input type="hidden" name="book_id" value="<%= book.id %>">
+
+            <label for="note_text">Note text:</label>
+            <textarea name="note_text" id="note_text" required></textarea>
+            <button type="submit">Add</button>
+        </form>
+
+        <section class="notes-section">
+            <% if(locals.notes && notes.length >= 1){ %>
+                <% for(let note of notes){ %>
+                    <div class="note">
+                        <h3 class="note-date"><%= note.note_date %></h3>
+                        <p class="note-text"><%= note.note_text %></p>                        
+                    </div>
+                <% } %>                    
+            <% }else {  %>
+                <h4>There are no notes for that book! You can add one above...</h4>
+            <% } %>
+        </section>
     </section>
 </body>
 </html>
