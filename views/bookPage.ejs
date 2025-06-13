@@ -12,7 +12,7 @@
         <div class="book-details">
             <div class="book-img-and-link">
                 <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-L.jpg" alt="<%= book.title %>" class="book-page-img">
-                <p class="book-page-link">Go to this page to see more details and reviews: <a href="<%= book.link %>"><%= book.title %> </a></p>
+                <p class="book-page-link">Go to this page to see more details and reviews: <a target="_blank" href="<%= book.link %>"><%= book.title %> </a></p>
             </div>
             <div class="book-info">
                 <h4 class="book-page-isbn">ISBN - <%= book.title %></h4>
@@ -37,7 +37,8 @@
                 <% for(let note of notes){ %>
                     <div class="note">
                         <h3 class="note-date"><%= note.note_date %></h3>
-                        <p class="note-text"><%= note.note_text %></p>                        
+                        <p class="note-text"><%= note.note_text %></p>     
+                        <a href="/book/<%= book.id %>/note/<%= note.id %>/delete">Delete</a>                   
                     </div>
                 <% } %>                    
             <% }else {  %>
