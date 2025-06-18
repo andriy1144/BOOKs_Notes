@@ -18,7 +18,7 @@ app.get("/", async (req,res) => {
     try{
         const user_id = await getCurrentUserId();
         const books = await getAllBooksFormattedByUser(user_id);
-        res.render("index.ejs", {books: books});
+        res.render("index.ejs", {books: books, title: "Homepage"});
     }catch(error){
         res.status(500).json({error: error.message});
     }
@@ -32,7 +32,7 @@ app.get("/book/:id", async (req,res) => {
         const book = await getBookByIdAndUser(id, user_id);
 
         const notes = await getNotesByBookId(id);
-        res.render("bookPage.ejs", {headerTitle: book.title, book: book, notes: notes})
+        res.render("bookPage.ejs", {headerTitle: book.title, book: book, notes: notes, title: book.title})
     }catch(error){
         res.status(500).json({error: error.message});
     }
@@ -109,7 +109,7 @@ app.post("/book/note/update_note", async (req,res) => {
 
 // LOGIN AND REGISTRATION ENDPOINTS
 app.get("/login", async (req,res) => {
-    res.render("login.ejs");
+    res.render("login.ejs", {title: "Login"});
 });
 app.post("/login", async (req,res) => {
     try{
@@ -123,7 +123,7 @@ app.post("/login", async (req,res) => {
 });
 
 app.get("/registration", async (req,res) => {
-    res.render("registration.ejs");
+    res.render("registration.ejs", {title: "Registration"});
 });
 
 app.post("/registration", async (req,res) => {
@@ -131,7 +131,7 @@ app.post("/registration", async (req,res) => {
         const userData = req.body;
         const registrationRes = await registration(userData);
 
-        if(registrationRes) res.render("login.ejs", {registrationMessage: "Registration was successful. "});
+        if(registrationRes) res.render("login.ejs", {registrationMessage: "Registration was successful. ", title: "Login"});
     }catch(error){
         res.status(500).json({error: error.message});
     }

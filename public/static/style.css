@@ -1,0 +1,158 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* VARIABLES */
+:root{
+    --inter-font: "Inter", sans-serif;
+
+    --main-bg: #000000;
+
+    --text-color: #EFEEEA;
+
+    --main-orange: #FE7743;
+}
+
+html{
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: var(--inter-font);
+}
+
+/* LOGIN & REGISTRATION PAGE */
+.login-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 90px;
+}
+
+.login-section > h1{
+    font-size: 3.5rem;
+    text-align: center;
+    font-weight: 900;
+    filter: drop-shadow(2px 5px 2px var(--main-orange));
+}
+
+.login-block{
+    margin-top: 70px;
+    
+    /* GLASS BG EFFECT */
+    background: rgba(254, 119, 67, 0.38);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    height: 400px;
+    width: 450px;
+
+    padding: 20px;
+}
+
+.login-block > h3{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.login-form{
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form > label{
+    margin-bottom: 5px;
+    margin-left: 10px;
+    
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.login-form > input{
+    margin-bottom: 25px;
+    height: 50px;
+    
+    outline: none;
+    border: none;
+    border-radius: 15px;
+
+    padding-left: 15px;
+    font-size: 1.2rem;
+}
+
+.login-form > button{
+    height: 40px;
+    width: 10rem;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+
+    font-size: 1.5rem;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.registration-link-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration-link {
+    color: var(--text-color);
+}
+
+.registration-block{
+    height: 475px;
+}

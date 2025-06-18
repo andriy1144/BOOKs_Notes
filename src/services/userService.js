@@ -1,8 +1,8 @@
 import db from "../database.js"
 
 // TEMPORARY SOLUTION FOR AUTHORIZATION STATE
-let isLoggedIn = false;
-let userId;
+let isLoggedIn = true;
+let userId = 1;
 const allowedEndpoints = ['/login', '/registration'];
 
 export async function checkAuthorized(req,res,next) {

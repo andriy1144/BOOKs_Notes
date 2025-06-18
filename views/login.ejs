@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<%- include("partials/head.ejs") %>
 <body>
     <div class="login-section">
         <h1>WELCOME TO THE P.B.L</h1>
@@ -24,7 +18,9 @@
             <% if(locals.registrationMessage){ %>
                 <p class="registrationMessage"><%= registrationMessage %></p>    
             <% } %>
-            <a href="/registration">Don't have an account?</a>
+            <div class="registration-link-block">
+                <a href="/registration" class="registration-link">Don't have an account?</a>
+            </div>
         </div>
     </div>
 </body>
