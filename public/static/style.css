@@ -156,3 +156,98 @@ html{
 .registration-block{
     height: 475px;
 }
+
+/* HOMEPAGE */
+.header{
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--main-orange);
+}
+
+.header-title{
+    font-size: 3.5rem;
+    text-align: center;
+    font-weight: 900;
+    filter: drop-shadow(2px 5px 2px var(--main-orange));
+}
+
+.books-section {
+    width: 60%;
+    margin: 80px auto;
+    background-color: #000;
+    padding-bottom: 60px;
+}
+
+.book {
+    display: flex;
+    /* background-color: #111; */
+    padding: 20px;
+    padding-bottom: 60px;
+    margin-bottom: 40px;
+    position: relative;
+    border-bottom: 2px solid var(--main-orange);
+}
+
+.book-img {
+    width: 140px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 20px;
+    background-color: #ccc;
+}
+
+.book-title-and-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+}
+
+.book-title { 
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.book-title a {
+    text-decoration: none;
+    color: white;
+}
+
+.book-title a:hover {
+    color: #ff4500;
+}
+
+.book-isbn {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+.book-reading-dates {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.book-description {
+    margin: 0;
+    color: #ddd;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;        /* Обмеження кількості рядків */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    line-height: 1.6;         
+    padding-bottom: 4px; 
+}
+.book p {
+    margin-bottom: 10px;
+}
+
+.book-title-and-rating p {
+    font-size: 14px;
+    color: #aaa;
+}
