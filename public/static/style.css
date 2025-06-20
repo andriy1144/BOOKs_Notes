@@ -235,7 +235,7 @@ html{
     margin: 0;
     color: #ddd;
     display: -webkit-box;
-    -webkit-line-clamp: 3;        /* Обмеження кількості рядків */
+    -webkit-line-clamp: 3;        
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -250,4 +250,114 @@ html{
 .book-title-and-rating p {
     font-size: 14px;
     color: #aaa;
+}
+
+
+/* BOOK DETAILS PAGE */
+.book-details-section{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.back-link{
+    color:var(--main-orange);
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 200;
+}
+.back-link:hover{
+    text-decoration: underline;
+}
+
+.book-details{
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+}
+
+.book-img-and-link{
+    width: 60%;
+}
+.book-page-img{
+    width: 250px;
+    object-fit: contain;
+}
+
+.book-page-link{
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 200;
+    margin-top: 10px;
+    line-height: 1.3;
+}
+.book-page-link > a{
+    color: var(--main-orange);
+    text-decoration: none;
+}
+.book-page-link > a:hover{
+    text-decoration: underline;
+}
+
+/* BOOK INFO */
+.book-info{
+    line-height: 1.6;
+}
+.book-page-isbn{
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+
+.book-page-rating{
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+
+.book-page-start-date{
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+
+.book-page-end-date{
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+
+.book-page-description{
+    margin-top:30px;
+}
+
+.action-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.action-btn{
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    
+    background-color: var(--text-color);
+    height: 30px;
+    width: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.update-button{
+    color: var(--main-orange)
+}
+
+.delete-button{
+    color: red;
+    text-decoration: none;
 }
